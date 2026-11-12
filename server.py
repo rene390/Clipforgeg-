@@ -19,7 +19,6 @@ HOSTS = {"youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be"}
 shutil.rmtree(TMP, ignore_errors=True)
 OUT.mkdir(exist_ok=True); TMP.mkdir(exist_ok=True)
 app = FastAPI(title="ClipForge AI")
-app.mount("/static", StaticFiles(directory=BASE / "static"), name="static")
 app.mount("/outputs", StaticFiles(directory=OUT), name="outputs")
 pool = ThreadPoolExecutor(max_workers=int(os.getenv("WORKERS", 1)))
 jobs, model, model_lock = {}, None, threading.Lock()
@@ -151,6 +150,12 @@ def visitor(request, resp):
 
 @app.get("/")
 def home(): return FileResponse(BASE / "index.html")
+
+@app.get("/app.js")
+def js(): return FileResponse(BASE / "app.js", media_type="text/javascript")
+
+@app.get("/style.css")
+def css(): return FileResponse(BASE / "style.css", media_type="text/css")
 
 @app.get("/api/health")
 def health(): return {"ok": True}

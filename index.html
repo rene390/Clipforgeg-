@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ClipForge · Convierte tus videos de YouTube en clips con subtítulos</title>
+<meta name="description" content="Pega el enlace de un video tuyo y obtén clips verticales, cuadrados o horizontales con subtítulos automáticos.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%233a5bff'/><path d='M9 9l14 14M23 9L9 23' stroke='white' stroke-width='3' stroke-linecap='round'/></svg>">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main>
+  <header><strong class="logo">ClipForge</strong><span class="badge">Solo videos propios o con permiso</span></header>
+
+  <section class="hero">
+    <h1>Un video largo.<br>Varios clips listos para publicar.</h1>
+    <p class="lead">Pega el enlace, elige el formato y ClipForge transcribe el audio, busca los pasajes con más contenido y exporta cada clip con subtítulos.</p>
+    <div class="timeline" aria-hidden="true"><i style="--l:6%;--w:9%"></i><i style="--l:27%;--w:12%"></i><i style="--l:51%;--w:8%"></i><i style="--l:70%;--w:13%"></i><i style="--l:90%;--w:7%"></i></div>
+  </section>
+
+  <form id="form" class="panel" novalidate>
+    <div class="field">
+      <label for="url">Enlace de YouTube</label>
+      <input id="url" type="url" inputmode="url" autocomplete="off" placeholder="https://www.youtube.com/watch?v=…">
+      <p id="urlerr" class="err" role="alert" hidden>Pega un enlace de youtube.com o youtu.be.</p>
+    </div>
+    <div class="grid">
+      <div class="field"><label for="count">Número de clips</label><select id="count"><option>3</option><option selected>5</option><option>10</option></select></div>
+      <div class="field"><label for="duration">Duración máxima</label><select id="duration"><option value="30">30 s</option><option value="45" selected>45 s</option><option value="60">60 s</option></select></div>
+      <div class="field"><label for="ratio">Formato</label><select id="ratio"><option value="9:16">Vertical 9:16 (TikTok, Reels, Shorts)</option><option value="1:1">Cuadrado 1:1</option><option value="16:9">Horizontal 16:9</option></select></div>
+      <div class="field"><label for="quality">Calidad</label><select id="quality"><option value="720">720p (más rápido)</option><option value="1080" selected>1080p</option></select></div>
+    </div>
+    <label class="check"><input id="captions" type="checkbox" checked> Añadir subtítulos automáticos</label>
+    <label class="check"><input id="rights" type="checkbox"> Soy el propietario del video o tengo permiso para editarlo.</label>
+    <button id="go" type="submit" disabled>Crear clips</button>
+    <p class="note">MP4 sin marca de agua. El recorte es centrado y los clips se borran del servidor a las 2 horas.</p>
+  </form>
+
+  <section id="status" class="panel" hidden aria-live="polite">
+    <strong id="stitle">Procesando…</strong>
+    <p id="smsg"></p>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="fill"></i></div>
+  </section>
+
+  <section id="results" class="panel" hidden>
+    <h2>Tus clips</h2>
+    <div id="clips"></div>
+  </section>
+
+  <footer>Respeta los derechos de autor y los términos de YouTube. La selección de momentos se basa en la densidad del discurso y no garantiza viralidad.</footer>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
